@@ -60,11 +60,82 @@ export const useAdminDashboard = () => {
     const reservationsData = localStorage.getItem("reservations");
     if (reservationsData) {
       setReservations(JSON.parse(reservationsData));
+    } else {
+      // プレビュー用の初期ダミーデータを設定
+      const dummyReservations = [
+        {
+          id: "1",
+          name: "田中 太郎",
+          email: "tanaka@example.com",
+          interests: ["habit-challenge", "voice-chat"],
+          createdAt: new Date(Date.now() - 86400000 * 3).toISOString(), // 3日前
+        },
+        {
+          id: "2",
+          name: "鈴木 花子",
+          email: "suzuki@example.com",
+          interests: ["user-events"],
+          createdAt: new Date(Date.now() - 86400000 * 2).toISOString(), // 2日前
+        },
+        {
+          id: "3",
+          name: "佐藤 次郎",
+          email: "sato@example.com",
+          interests: ["habit-challenge", "user-events"],
+          createdAt: new Date(Date.now() - 86400000 * 1).toISOString(), // 1日前
+        },
+        {
+          id: "4",
+          name: "高橋 美咲",
+          email: "takahashi@example.com",
+          interests: ["voice-chat", "user-events"],
+          createdAt: new Date(Date.now() - 3600000 * 12).toISOString(), // 12時間前
+        },
+        {
+          id: "5",
+          name: "山田 健一",
+          email: "yamada@example.com",
+          interests: ["habit-challenge"],
+          createdAt: new Date(Date.now() - 3600000 * 6).toISOString(), // 6時間前
+        },
+      ];
+      setReservations(dummyReservations);
+      localStorage.setItem("reservations", JSON.stringify(dummyReservations));
     }
 
     const notificationsData = localStorage.getItem("notifications");
     if (notificationsData) {
       setNotifications(JSON.parse(notificationsData));
+    } else {
+      // プレビュー用の初期通知データを設定
+      const dummyNotifications = [
+        {
+          id: "1",
+          type: "new_registration",
+          title: "新規登録",
+          message: "山田 健一さんが事前登録しました",
+          isRead: false,
+          createdAt: new Date(Date.now() - 3600000 * 6).toISOString(),
+        },
+        {
+          id: "2",
+          type: "new_registration",
+          title: "新規登録",
+          message: "高橋 美咲さんが事前登録しました",
+          isRead: false,
+          createdAt: new Date(Date.now() - 3600000 * 12).toISOString(),
+        },
+        {
+          id: "3",
+          type: "new_registration",
+          title: "新規登録",
+          message: "佐藤 次郎さんが事前登録しました",
+          isRead: true,
+          createdAt: new Date(Date.now() - 86400000 * 1).toISOString(),
+        },
+      ];
+      setNotifications(dummyNotifications);
+      localStorage.setItem("notifications", JSON.stringify(dummyNotifications));
     }
   }, []);
 

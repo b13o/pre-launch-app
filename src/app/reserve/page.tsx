@@ -56,28 +56,17 @@ export default function ReservePage() {
   };
 
   /**
-   * フォーム送信処理
+   * フォーム送信処理（プレビュー版）
    *
-   * APIエンドポイントへのデータ送信、ローカルストレージへの保存、
-   * 管理画面用の通知データ作成を行います。
+   * GitHub Pages向けのダミー実装。
+   * 実際のAPI呼び出しは行わず、ローカルストレージへの保存のみ実行。
    */
   const onSubmit = async (data: ReservationFormData) => {
     setIsLoading(true);
 
     try {
-      // 予約APIエンドポイントにデータを送信
-      const response = await fetch("/api/reservation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit reservation");
-      }
+      // プレビュー版では実際のAPI呼び出しは行わず、少し待機してからローカル処理
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // 管理画面での表示用にローカルストレージに予約データを保存
       const reservations = JSON.parse(
@@ -106,8 +95,9 @@ export default function ReservePage() {
       notifications.unshift(newNotification); // 新しい通知を先頭に追加
       localStorage.setItem("notifications", JSON.stringify(notifications));
 
-      toast.success("登録完了！", {
-        description: "事前登録が完了しました。確認メールをご確認ください。",
+      toast.success("登録完了！（プレビュー版）", {
+        description:
+          "事前登録のシミュレーションが完了しました。実際のメール送信は行われません。",
       });
 
       router.push("/confirmation");
